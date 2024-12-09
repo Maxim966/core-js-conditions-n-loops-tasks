@@ -236,10 +236,14 @@ function convertNumberToString(numberStr) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
-}
+function isPalindrome(str) {
+  let newStr = '';
 
+  for (let index = str.length - 1; index >= 0; index -= 1) {
+    newStr += str[index];
+  }
+  return newStr === str;
+}
 /**
  * Finds the first occurrence of a letter in a string.
  * In this task, the use of methods of the String and Array classes is not allowed.
@@ -254,8 +258,13 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  for (let index = 0; index < str.length; index += 1) {
+    if (str[index] === letter) {
+      return index;
+    }
+  }
+  return -1;
 }
 
 /**
@@ -273,8 +282,15 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  let number = num;
+  while (number > 0) {
+    if (number % 10 === digit) {
+      return true;
+    }
+    number = Math.floor(number / 10);
+  }
+  return false;
 }
 
 /**
@@ -290,8 +306,23 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  let sum = 0;
+  let left = 0;
+  for (let index = 0; index < arr.length; index += 1) {
+    sum += arr[index];
+  }
+
+  for (let index = 0; index < arr.length; index += 1) {
+    const right = sum - arr[index] - left;
+
+    if (right === left) {
+      return index;
+    }
+
+    left += arr[index];
+  }
+  return -1;
 }
 
 /**
@@ -334,8 +365,24 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const newMatrix = matrix;
+  const newArr = [];
+  for (let index = 0; index < matrix.length; index += 1) {
+    const arr = [];
+    for (let j = matrix.length - 1; j >= 0; j -= 1) {
+      arr[matrix.length - 1 - j] = newMatrix[j][index];
+    }
+    newArr[index] = arr;
+  }
+
+  for (let index = 0; index < matrix.length; index += 1) {
+    for (let j = 0; j < matrix.length; j += 1) {
+      newMatrix[index][j] = newArr[index][j];
+    }
+  }
+
+  return newMatrix;
 }
 
 /**
